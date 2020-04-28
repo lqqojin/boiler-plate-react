@@ -2,6 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
+const config = require('./config/key');
+
 const app = express();
 const port = 3000;
 const { Users } = require('./models/Users');
@@ -11,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // application/json
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://192.168.0.17:27017', {
+mongoose.connect(config.mongoURI, {
   useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false,
 }).then(() => console.log('MongoDB Connected...'))
   .catch((error) => console.error('mongodb error', error));
