@@ -6,7 +6,6 @@ const cookieParser = require('cookie-parser');
 const config = require('./config/key');
 
 const app = express();
-const port = 3000;
 const { User } = require('./models/User');
 const { auth } = require('./middleware/auth');
 
@@ -16,6 +15,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // application/json
 // json 형식을 분석 해서 가져옴
 app.use(bodyParser.json());
+
+app.get('/api/hello', (req, res) => {
+	console.log('/api/hello')
+	res.send('HELLO WORLD');
+})
 
 mongoose.connect(config.mongoURI, {
   useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false,
@@ -98,4 +102,5 @@ app.get('/api/users/logout', auth, (req, res) => {
 	})
 })
 
+const port = 5000;
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
