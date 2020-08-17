@@ -15,6 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // application/json
 // json 형식을 분석 해서 가져옴
 app.use(bodyParser.json());
+app.use(cookieParser())
 
 app.get('/api/hello', (req, res) => {
 	console.log('/api/hello')
@@ -37,7 +38,7 @@ app.post('/api/users/register', (req, res) => {
 	});
 });
 
-app.post('/api/user/login', (req, res) => {
+app.post('/api/users/login', (req, res) => {
 	console.log('/login parameter', req.body);
 
 	// 1.  요청된 이메일을 데이터베이스에 있는지 찾는다.
@@ -56,7 +57,7 @@ app.post('/api/user/login', (req, res) => {
 				console.log('generateToken result', { err, user });
 				if(err) return res.status(500).send(err);
 				// 토큰을 저장하다. 어디에? 1. 쿠키 2. local storage 3. session storage
-				res.cookie("auth", user.token)
+				res.cookie("x_auth", user.token)
 				.status(200)
 				.json({loginSuccess: true, userId: user.token, message: "로그인 되었습니다."})
 			})
