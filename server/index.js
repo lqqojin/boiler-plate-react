@@ -37,7 +37,7 @@ app.post('/api/users/register', (req, res) => {
 	});
 });
 
-app.post('/api/users/login', (req, res) => {
+app.post('/api/user/login', (req, res) => {
 	console.log('/login parameter', req.body);
 
 	// 1.  요청된 이메일을 데이터베이스에 있는지 찾는다.
